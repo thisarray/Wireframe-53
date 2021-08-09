@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>pinball</title>
+  <script src="../../jsgame0.js"></script>
+  <style type="text/css" media="screen">
+body {
+  background-color: white;
+  color: black;
+}
+.hidden {
+  display: none;
+}
+#original {
+  margin-left: 1em;
+}
+  </style>
+</head>
+
+<body>
+<section id="imageLoader" class="hidden">
+  <img class="hidden" src="images/background.png" alt="background" data-name="background">
+  <img class="hidden" src="images/ball.png" alt="ball" data-name="ball">
+  <img class="hidden" src="images/flipperl.png" alt="flipperl" data-name="flipperl">
+  <img class="hidden" src="images/flipperr.png" alt="flipperr" data-name="flipperr">
+</section>
+
+<main>
+<h1>pinball</h1>
+
+<canvas id="screen">
+The game screen appears here if your browser supports the Canvas API.
+</canvas>
+<section id="controls">
+  <button type="button" id="reset">Reset</button>
+  <button type="button" id="pause">Pause</button>
+</section>
+
+<h2>Attribution</h2>
+
+<p><a href="https://wireframe.raspberrypi.org/issues/53">Source Code: code your own pinball video game, pages 64-65, by Mark Vanstone</a>.</p>
+
+<p>Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported</a>.</p>
+
+<p><a href="https://www.raspberrypi.org/blog/code-your-own-pinball-game-wireframe-53/">Blog post of Source Code</a>.</p>
+
+<h2>Original Python code</h2>
+
+<pre id="original"><code>
+# Pinball
+import pgzrun
+import math
+import random
+from pygame import image, Color
+WIDTH = 600
+HEIGHT = 800
+collisionMap = image.load(&#x27;images/background.png&#x27;)
+flipperLeft = Actor(&#x27;flipperl&#x27;,center=(210,660), anchor=(20, 20))
+flipperLeft.angle = -30
+flipperRight = Actor(&#x27;flipperr&#x27;,center=(390,660), anchor=(112, 20))
+flipperRight.angle = 30
+
+def init():
+    global gamestate, ball
+    ball = Actor(&#x27;ball&#x27;, center=(560,310))
+    ball.speed = 5 + random.randint(0, 7)
+    ball.dir = 4 + ((random.randint(0, 10)/10)-0.5)
+    gamestate = 0
+
+def draw():
+    screen.blit(&quot;background&quot;, (0, 0))
+    flipperLeft.draw()
+    flipperRight.draw()
+    if gamestate == 0 or random.randint(0,1) == 1: ball.draw()
+
+def update():
+    if gamestate == 0:
+        if keyboard.left:
+            flipperLeft.angle = limit(flipperLeft.angle+20, -30, 30)
+        else:
+            flipperLeft.angle = limit(flipperLeft.angle-20, -30, 30)
+        if keyboard.right:
+            flipperRight.angle = limit(flipperRight.angle-20, -30, 30)
+        else:
+            flipperRight.angle = limit(flipperRight.angle+20, -30, 30)
+        moveBall()
+        checkBounce()
+    else:
+        if keyboard.space: init()
+
+def moveBall():
+    global gamestate
+    ball.x += ball.speed * math.sin(ball.dir)
+    ball.y += ball.speed * math.cos(ball.dir)
+    if ball.x &gt; 570 or ball.y &gt; 760: gamestate = 1
+
+def checkBounce():
+    global score
+    d = math.degrees(ball.dir)%360
+    inc = -1.5
+    if d &gt; 90 and d &lt; 270:
+        inc = 1.5
+        ball.speed -= 0.03
+        if ball.speed &lt; 0: ball.dir = 0
+    else:
+        if ball.speed &lt; 10: ball.speed += 0.04
+    if flipperRight.collidepoint(ball.pos):
+        ball.dir = 4 + (flipperRight.angle/50)
+        if keyboard.right :
+            ball.speed += 0.3
+            moveBall()
+        if inc == 1.5:
+            ball.dir = 0
+        moveBall()
+    if flipperLeft.collidepoint(ball.pos):
+        ball.dir = 3 +(flipperLeft.angle/50)
+        if keyboard.left :
+            ball.speed += 0.3
+            moveBall()
+        if inc == 1.5:
+            ball.dir = 0
+        moveBall()
+    rgb = collisionCheck()
+    while rgb != Color(&quot;black&quot;):
+        ball.dir += inc
+        moveBall()
+        rgb = collisionCheck()
+
+def collisionCheck():
+    r = 22
+    cl = [(0,-r),(r,0),(0,r),(-r,0)]
+    for t in range(4):
+        rgb = collisionMap.get_at((int(ball.x)+cl[t][0],int(ball.y)+cl[t][1]))
+        if rgb != Color(&quot;black&quot;):
+            return rgb
+    return rgb
+
+def limit(n, minn, maxn):
+    return max(min(maxn, n), minn)
+
+init()
+pgzrun.go()
+</code></pre>
+</main>
+
+<script>
+// Pinball
+WIDTH = 600;
+HEIGHT = 800;
+
+/*
+ * Return a random integer N such that min <= N < max.
+ */
+function getRandomInteger(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor((Math.random() * (max - min)) + min);
+}
+
+var collisionMap, flipperLeft, flipperRight, gamestate, ball;
+
+function reset() {
+  screen.blit('background', [0, 0]);
+  collisionMap = screen.getSurface();
+  flipperLeft = new Actor('flipperl');
+  flipperLeft.center = [210, 660];
+  flipperLeft.anchor = [20, 20];
+  flipperLeft.angle = -30;
+  flipperRight = new Actor('flipperr');
+  flipperRight.center = [390, 660];
+  flipperRight.anchor = [112, 20];
+  flipperRight.angle = 30;
+
+  init();
+}
+
+function init() {
+  ball = new Actor('ball');
+  ball.center = [560, 310];
+  ball.speed = 5 + getRandomInteger(0, 8);
+  ball.dir = 4 + ((getRandomInteger(0, 11) / 10) - 0.5);
+  gamestate = 0;
+}
+
+function draw() {
+  screen.blit("background", [0, 0]);
+  flipperLeft.draw();
+  flipperRight.draw();
+  if ((gamestate === 0) || (getRandomInteger(0, 2) === 1)) {
+    ball.draw();
+  }
+}
+
+function update() {
+  if (gamestate === 0) {
+    if (keyboard[keys.LEFT]) {
+      flipperLeft.angle = limit(flipperLeft.angle + 20, -30, 30);
+    }
+    else {
+      flipperLeft.angle = limit(flipperLeft.angle - 20, -30, 30);
+    }
+    if (keyboard[keys.RIGHT]) {
+      flipperRight.angle = limit(flipperRight.angle - 20, -30, 30);
+    }
+    else {
+      flipperRight.angle = limit(flipperRight.angle + 20, -30, 30);
+    }
+    moveBall();
+    checkBounce();
+  }
+  else {
+    if (keyboard[keys.SPACE]) {
+      init();
+    }
+  }
+}
+
+function moveBall() {
+  ball.posx += ball.speed * Math.sin(ball.dir);
+  ball.posy += ball.speed * Math.cos(ball.dir);
+  if ((ball.posx > 570) || (ball.posy > 760)) {
+    gamestate = 1;
+  }
+}
+
+function checkBounce() {
+  let d = (ball.dir * 180 / Math.PI) % 360,
+      inc = -1.5;
+  if ((d > 90) && (d < 270)) {
+    inc = 1.5;
+    ball.speed -= 0.03;
+    if (ball.speed < 0) {
+      ball.dir = 0;
+    }
+  }
+  else {
+    if (ball.speed < 10) {
+      ball.speed += 0.04;
+    }
+  }
+  if (flipperRight.getBoundingBox().collidepoint(ball.pos)) {
+    ball.dir = 4 + (flipperRight.angle / 50);
+    if (keyboard[keys.RIGHT]) {
+      ball.speed += 0.3;
+      moveBall();
+    }
+    if (inc === 1.5) {
+      ball.dir = 0;
+    }
+    moveBall();
+  }
+  if (flipperLeft.getBoundingBox().collidepoint(ball.pos)) {
+    ball.dir = 3 + (flipperLeft.angle / 50);
+    if (keyboard[keys.LEFT]) {
+      ball.speed += 0.3;
+      moveBall();
+    }
+    if (inc === 1.5) {
+      ball.dir = 0;
+    }
+    moveBall();
+  }
+  rgb = collisionCheck();
+  while (!Surface.isColorEqual(rgb, [0, 0, 0])) {
+    ball.dir += inc;
+    moveBall();
+    rgb = collisionCheck();
+  }
+}
+
+function collisionCheck() {
+  let r = 22,
+      cl = [[0, -r], [r, 0], [0, r], [-r, 0]],
+      rgb;
+  for (let t = 0; t < 4; t++) {
+    rgb = collisionMap.getAt(Math.trunc(ball.posx) + cl[t][0], Math.trunc(ball.posy) + cl[t][1]);
+    if (!Surface.isColorEqual(rgb, [0, 0, 0])) {
+      return rgb;
+    }
+  }
+  return rgb;
+}
+
+function limit(n, minn, maxn) {
+  return Math.max(Math.min(maxn, n), minn);
+}
+
+window.addEventListener('load', (event) => {
+  images.LOAD('#imageLoader img');
+  // Non-standard order for Surface
+  screen.set_mode('#screen', '#reset', '#pause');
+  reset();
+  screen.draw.playButton();
+});
+</script>
+</body>
+
+</html>
