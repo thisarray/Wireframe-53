@@ -8,3 +8,5 @@ Create your own side-scrolling shoot-'em-up, pages 58-63, by Jordi Sontanja.
 Source Code: code your own pinball video game, pages 64-65, by Mark Vanstone.
 
 The code examples are licenced under Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported.
+
+[Run the JavaScript port of Source Code in your browser.](https://thisarray.github.io/Wireframe-53/source-code-pinball/pinball.html)
