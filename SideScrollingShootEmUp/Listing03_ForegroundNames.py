@@ -1,0 +1,10 @@
+foregroundNames = ['centreforeground', 'leftforeground', 'leftvertforeground',
+                   'rightforeground', 'rightvertforeground',
+                   'centreforeground_top', 'leftforeground_top', 'leftvertforeground_top',
+                   'rightforeground_top', 'rightvertforeground_top',
+                   'centreforeground_narrow', 'centreforeground_narrow_top',
+                   'leftforeground_narrow', 'leftforeground_narrow_top',
+                   'leftvertforeground_narrow', 'leftvertforeground_narrow_top',
+                   'rightforeground_narrow', 'rightforeground_narrow_top',
+                   'rightvertforeground_narrow', 'rightvertforeground_narrow_top',
+                   'centre']
