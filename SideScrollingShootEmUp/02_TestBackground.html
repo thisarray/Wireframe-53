@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TestBackground</title>
+  <script src="../../jsgame0.js"></script>
+  <style type="text/css" media="screen">
+body {
+  background-color: white;
+  color: black;
+}
+.hidden {
+  display: none;
+}
+#original {
+  margin-left: 1em;
+}
+  </style>
+</head>
+
+<body>
+<section id="imageLoader" class="hidden">
+  <img class="hidden" src="images/background_0.png" alt="background_0" data-name="background_0">
+  <img class="hidden" src="images/background_1.png" alt="background_1" data-name="background_1">
+</section>
+
+<main>
+<h1>TestBackground</h1>
+
+<canvas id="screen">
+The game screen appears here if your browser supports the Canvas API.
+</canvas>
+<section id="controls">
+  <button type="button" id="reset">Reset</button>
+  <button type="button" id="pause">Pause</button>
+</section>
+
+<h2>Attribution</h2>
+
+<p><a href="https://wireframe.raspberrypi.org/issues/53">Create your own side-scrolling shoot-'em-up, pages 58-63, by Jordi Sontanja</a>.</p>
+
+<p>Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported</a>.</p>
+
+<h2>Original Python code</h2>
+
+<pre id="original"><code>
+import pgzrun
+
+def draw(screen, frame):
+    screen.blit(&quot;background_1&quot;,(800-frame%(800*8)/4,0))
+    screen.blit(&quot;background_0&quot;,(800-(frame+800*4)%(800*8)/4,0))
+
+globalFrameCount = 0
+def draw():
+    draw(screen, globalFrameCount)
+def update():
+    global globalFrameCount
+    globalFrameCount += 1
+pgzrun.go()
+</code></pre>
+</main>
+
+<script>
+function drawBackground(screen, frame) {
+  screen.blit("background_1", [800 - ((frame % (800 * 8)) / 4), 0]);
+  screen.blit("background_0", [800 - (((frame + (800 * 4)) % (800 * 8)) / 4), 0]);
+}
+
+var globalFrameCount;
+
+function reset() {
+  globalFrameCount = 0;
+}
+
+function draw() {
+  drawBackground(screen, globalFrameCount);
+}
+
+function update() {
+  globalFrameCount += 1;
+}
+
+window.addEventListener('load', (event) => {
+  images.LOAD('#imageLoader img');
+  reset();
+  screen.set_mode('#screen', '#reset', '#pause');
+});
+</script>
+</body>
+
+</html>
