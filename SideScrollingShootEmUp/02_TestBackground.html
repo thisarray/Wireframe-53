@@ -48,13 +48,13 @@ The game screen appears here if your browser supports the Canvas API.
 <pre id="original"><code>
 import pgzrun
 
-def draw(screen, frame):
+def drawBackground(screen, frame):
     screen.blit(&quot;background_1&quot;,(800-frame%(800*8)/4,0))
     screen.blit(&quot;background_0&quot;,(800-(frame+800*4)%(800*8)/4,0))
 
 globalFrameCount = 0
 def draw():
-    draw(screen, globalFrameCount)
+    drawBackground(screen, globalFrameCount)
 def update():
     global globalFrameCount
     globalFrameCount += 1
