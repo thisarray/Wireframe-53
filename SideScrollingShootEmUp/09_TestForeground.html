@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TestForeground</title>
+  <script src="../../jsgame0.js"></script>
+  <script id="foreground" type="application/json">
+[["leftforeground_narrow", 1634, 571], ["centreforeground_narrow", 1831, 571], ["centreforeground_narrow", 2072, 571], ["centreforeground_narrow", 2314, 571], ["leftvertforeground_narrow", 2420, 506], ["centreforeground", 2557, 569], ["centreforeground", 2800, 569], ["centreforeground", 3041, 569],
+ ["centreforeground", 3284, 569], ["centreforeground", 3525, 569], ["centreforeground", 3767, 569], ["leftforeground_narrow_top", 3840, 31], ["centreforeground", 4009, 569], ["centreforeground_narrow_top", 4038, 31], ["centreforeground", 4250, 569], ["centreforeground_narrow_top", 4280, 31],
+ ["centreforeground", 4492, 569], ["centreforeground_narrow_top", 4522, 31], ["centreforeground", 4734, 569], ["centreforeground_narrow_top", 4765, 31], ["centreforeground", 4976, 569], ["centreforeground_narrow_top", 5008, 31], ["leftforeground_narrow", 5081, 249], ["leftforeground_narrow_top", 5081, 314],
+ ["centreforeground", 5219, 569], ["centreforeground_narrow_top", 5251, 31], ["centreforeground_narrow", 5278, 249], ["centreforeground_narrow_top", 5279, 314], ["centreforeground", 5462, 569], ["centreforeground_narrow_top", 5493, 31], ["centreforeground_narrow", 5521, 249], ["centreforeground_narrow_top", 5522, 314],
+ ["centreforeground", 5704, 569], ["centreforeground_narrow_top", 5736, 31], ["centreforeground_narrow", 5763, 249], ["centreforeground_narrow_top", 5763, 314], ["centreforeground", 5946, 569], ["centreforeground_narrow_top", 5978, 31], ["centreforeground_narrow", 6006, 249], ["centreforeground_narrow_top", 6006, 314],
+ ["centreforeground", 6189, 569], ["centreforeground_narrow_top", 6221, 31], ["centreforeground_narrow", 6249, 249], ["centreforeground_narrow_top", 6249, 314], ["centreforeground", 6432, 569], ["centreforeground_narrow_top", 6463, 31], ["rightforeground_narrow", 6446, 249], ["rightforeground_narrow_top", 6447, 314],
+ ["centreforeground", 6675, 569], ["centreforeground_narrow_top", 6706, 31], ["centreforeground", 6918, 569], ["centreforeground_narrow_top", 6949, 31], ["centreforeground", 7161, 569], ["centreforeground_narrow_top", 7191, 31], ["centreforeground", 7403, 569], ["centreforeground_narrow_top", 7433, 31], ["centreforeground", 7645, 569],
+ ["centreforeground_narrow_top", 7675, 31], ["centreforeground", 7887, 569], ["rightforeground_narrow_top", 7873, 31], ["centreforeground", 8128, 569], ["centreforeground", 8370, 569], ["centreforeground", 8613, 569], ["centreforeground", 8856, 569], ["leftforeground", 9112, 377], ["centre", 9099, 549],
+ ["centre", 9342, 549], ["centreforeground", 9438, 377], ["centre", 9585, 548], ["centreforeground", 9680, 377], ["centre", 9827, 546], ["centreforeground", 9923, 377], ["centre", 10069, 546], ["centreforeground", 10166, 377],
+ ["centre", 10310, 546], ["centreforeground", 10409, 377], ["centre", 10551, 546], ["centreforeground", 10652, 377], ["centre", 10652, 543], ["rightvertforeground", 10788, 548], ["rightvertforeground", 10788, 377]]
+  </script>
+  <style type="text/css" media="screen">
+body {
+  background-color: white;
+  color: black;
+}
+.hidden {
+  display: none;
+}
+#original {
+  margin-left: 1em;
+}
+  </style>
+</head>
+
+<body>
+<section id="imageLoader" class="hidden">
+  <img class="hidden" src="images/centre.png" alt="centre" data-name="centre">
+  <img class="hidden" src="images/centreforeground.png" alt="centreforeground" data-name="centreforeground">
+  <img class="hidden" src="images/centreforeground_narrow.png" alt="centreforeground_narrow" data-name="centreforeground_narrow">
+  <img class="hidden" src="images/centreforeground_narrow_top.png" alt="centreforeground_narrow_top" data-name="centreforeground_narrow_top">
+  <img class="hidden" src="images/centreforeground_top.png" alt="centreforeground_top" data-name="centreforeground_top">
+  <img class="hidden" src="images/leftforeground.png" alt="leftforeground" data-name="leftforeground">
+  <img class="hidden" src="images/leftforeground_narrow.png" alt="leftforeground_narrow" data-name="leftforeground_narrow">
+  <img class="hidden" src="images/leftforeground_narrow_top.png" alt="leftforeground_narrow_top" data-name="leftforeground_narrow_top">
+  <img class="hidden" src="images/leftforeground_top.png" alt="leftforeground_top" data-name="leftforeground_top">
+  <img class="hidden" src="images/leftvertforeground.png" alt="leftvertforeground" data-name="leftvertforeground">
+  <img class="hidden" src="images/leftvertforeground_narrow.png" alt="leftvertforeground_narrow" data-name="leftvertforeground_narrow">
+  <img class="hidden" src="images/leftvertforeground_narrow_top.png" alt="leftvertforeground_narrow_top" data-name="leftvertforeground_narrow_top">
+  <img class="hidden" src="images/leftvertforeground_top.png" alt="leftvertforeground_top" data-name="leftvertforeground_top">
+  <img class="hidden" src="images/rightforeground.png" alt="rightforeground" data-name="rightforeground">
+  <img class="hidden" src="images/rightforeground_narrow.png" alt="rightforeground_narrow" data-name="rightforeground_narrow">
+  <img class="hidden" src="images/rightforeground_narrow_top.png" alt="rightforeground_narrow_top" data-name="rightforeground_narrow_top">
+  <img class="hidden" src="images/rightforeground_top.png" alt="rightforeground_top" data-name="rightforeground_top">
+  <img class="hidden" src="images/rightvertforeground.png" alt="rightvertforeground" data-name="rightvertforeground">
+  <img class="hidden" src="images/rightvertforeground_narrow.png" alt="rightvertforeground_narrow" data-name="rightvertforeground_narrow">
+  <img class="hidden" src="images/rightvertforeground_narrow_top.png" alt="rightvertforeground_narrow_top" data-name="rightvertforeground_narrow_top">
+  <img class="hidden" src="images/rightvertforeground_top.png" alt="rightvertforeground_top" data-name="rightvertforeground_top">
+</section>
+
+<main>
+<h1>TestForeground</h1>
+
+<canvas id="screen">
+The game screen appears here if your browser supports the Canvas API.
+</canvas>
+<section id="controls">
+  <button type="button" id="reset">Reset</button>
+  <button type="button" id="pause">Pause</button>
+</section>
+
+<h2>Attribution</h2>
+
+<p><a href="https://wireframe.raspberrypi.org/issues/53">Create your own side-scrolling shoot-'em-up, pages 58-63, by Jordi Sontanja</a>.</p>
+
+<p>Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported</a>.</p>
+
+<h2>Original Python code</h2>
+
+<pre id="original"><code>
+import pgzrun
+from pgzero.builtins import Actor
+from shapely.geometry import Polygon
+from shapely.affinity import translate
+
+foregroundNames = [&#x27;centreforeground&#x27;, &#x27;leftforeground&#x27;, &#x27;leftvertforeground&#x27;,
+                   &#x27;rightforeground&#x27;, &#x27;rightvertforeground&#x27;,
+                   &#x27;centreforeground_top&#x27;, &#x27;leftforeground_top&#x27;, &#x27;leftvertforeground_top&#x27;,
+                   &#x27;rightforeground_top&#x27;, &#x27;rightvertforeground_top&#x27;,
+                   &#x27;centreforeground_narrow&#x27;, &#x27;centreforeground_narrow_top&#x27;,
+                   &#x27;leftforeground_narrow&#x27;, &#x27;leftforeground_narrow_top&#x27;,
+                   &#x27;leftvertforeground_narrow&#x27;, &#x27;leftvertforeground_narrow_top&#x27;,
+                   &#x27;rightforeground_narrow&#x27;, &#x27;rightforeground_narrow_top&#x27;,
+                   &#x27;rightvertforeground_narrow&#x27;, &#x27;rightvertforeground_narrow_top&#x27;,
+                   &#x27;centre&#x27;]
+
+foregroundMap = [(12,1634,571),(10,1831,571),(10,2072,571),(10,2314,571),(14,2420,506),(0,2557,569),(0,2800,569),(0,3041,569),
+                 (0,3284,569),(0,3525,569),(0,3767,569),(13,3840,31),(0,4009,569),(11,4038,31),(0,4250,569),(11,4280,31),
+                 (0,4492,569),(11,4522,31),(0,4734,569),(11,4765,31),(0,4976,569),(11,5008,31),(12,5081,249),(13,5081,314),
+                 (0,5219,569),(11,5251,31),(10,5278,249),(11,5279,314),(0,5462,569),(11,5493,31),(10,5521,249),(11,5522,314),
+                 (0,5704,569),(11,5736,31),(10,5763,249),(11,5763,314),(0,5946,569),(11,5978,31),(10,6006,249),(11,6006,314),
+                 (0,6189,569),(11,6221,31),(10,6249,249),(11,6249,314),(0,6432,569),(11,6463,31),(16,6446,249),(17,6447,314),
+                 (0,6675,569),(11,6706,31),(0,6918,569),(11,6949,31),(0,7161,569),(11,7191,31),(0,7403,569),(11,7433,31),(0,7645,569),
+                 (11,7675,31),(0,7887,569),(17,7873,31),(0,8128,569),(0,8370,569),(0,8613,569),(0,8856,569),(1,9112,377),(20,9099,549),
+                 (20,9342,549),(0,9438,377),(20,9585,548),(0,9680,377),(20,9827,546),(0,9923,377),(20,10069,546),(0,10166,377),
+                 (20,10310,546),(0,10409,377),(20,10551,546),(0,10652,377),(20,10652,543),(4,10788,548),(4,10788,377)]
+
+foregroundPolygons = [[(-122, -96), (120, -96), (120, 96), (-122, 96)], [(-204, 96), (186, -96), (204, -96), (204, 95)],
+                      [(-14, 95), (-14, -95), (14, -95), (14, 95)], [(-206, -95), (-187, -95), (200, 95), (-206, 95)],
+                      [(-15, -95), (12, -95), (12, 95), (-15, 95)], [(120, -95), (120, 95), (-122, 95), (-122, -95)],
+                      [(204, -95), (204, 95), (186, 95), (-202, -96)], [(14, 95), (-14, 95), (-14, -95), (13, -95)],
+                      [(-207, -96), (201, -96), (-187, 95), (-206, 95)], [(-15, -96), (12, -96), (12, 95), (-15, 95)],
+                      [(-122, -33), (120, -33), (120, 31), (-122, 31)], [(-122, -33), (120, -33), (120, 31), (-122, 31)],
+                      [(-73, 31), (56, -32), (75, -32), (75, 31)], [(75, 31), (56, 31), (-74, -33), (75, -33)],
+                      [(14, 31), (-14, 31), (-14, -32), (13, -32)], [(14, 32), (-14, 32), (-14, -33), (13, -33)],
+                      [(-77, -33), (-58, -33), (70, 31), (-77, 31)], [(-77, -33), (72, -33), (-58, 31), (-77, 31)],
+                      [(-15, -33), (12, -33), (12, 31), (-15, 31)], [(-15, -33), (13, -33), (13, 31), (-15, 31)],
+                      []]
+
+foregroundBiggestObjectHalfXSize = 206
+
+class Foreground:
+    def __init__(self):
+        self.elements = []
+        self.indexes = []
+        self.mapElement = 0
+        self.polygons = []
+    def draw(self):
+        for element in self.elements:
+            element.draw()
+    def update(self, globalTime):
+        for i in reversed(range(len(self.elements))):
+            self.elements[i].x -= 1
+            if self.elements[i].x &lt; -foregroundBiggestObjectHalfXSize:
+                del self.elements[i]
+                del self.indexes[i]
+        if self.mapElement &lt; len(foregroundMap):
+            while foregroundMap[self.mapElement][1] &lt; globalTime + 800 + foregroundBiggestObjectHalfXSize:
+                self.indexes.append(foregroundMap[self.mapElement][0])
+                self.elements.append(Actor(foregroundNames[foregroundMap[self.mapElement][0]], (foregroundMap[self.mapElement][1] - globalTime, foregroundMap[self.mapElement][2])))
+                self.mapElement += 1
+                if self.mapElement &gt;= len(foregroundMap):
+                    break
+        self.polygons = []
+        for i in range(len(self.indexes)):
+            polygon = translate(Polygon(foregroundPolygons[self.indexes[i]]), self.elements[i].x, self.elements[i].y)
+            self.polygons.append(polygon)
+
+foreground = Foreground()
+globalTime = 0
+def draw():
+    foreground.draw()
+def update():
+    global globalTime
+    globalTime += 1
+    foreground.update(globalTime)
+pgzrun.go()
+</code></pre>
+</main>
+
+<script>
+const FOREGROUND_MAP = JSON.parse(document.querySelector('#foreground').textContent);
+
+const FOREGROUND_BIGGEST_OBJECT_HALF_X_SIZE = 206;
+
+class Foreground {
+  constructor() {
+    this.elements = [];
+    this.mapElement = 0;
+  }
+
+  draw() {
+    for (let element of this.elements) {
+      element.draw();
+    }
+  }
+
+  update(globalTime) {
+    for (let i = (this.elements.length - 1); i > -1; i--) {
+      this.elements[i].posx -= 1;
+      if (this.elements[i].posx < -FOREGROUND_BIGGEST_OBJECT_HALF_X_SIZE) {
+        this.elements.splice(i, 1);
+      }
+    }
+    if (this.mapElement < FOREGROUND_MAP.length) {
+      while (FOREGROUND_MAP[this.mapElement][1] < (globalTime + 800 + FOREGROUND_BIGGEST_OBJECT_HALF_X_SIZE)) {
+        let actor = new Actor(FOREGROUND_MAP[this.mapElement][0]);
+        actor.pos = [FOREGROUND_MAP[this.mapElement][1] - globalTime, FOREGROUND_MAP[this.mapElement][2]];
+        this.elements.push(actor);
+        this.mapElement += 1;
+        if (this.mapElement >= FOREGROUND_MAP.length) {
+          break;
+        }
+      }
+    }
+  }
+}
+
+var foreground, globalTime;
+
+function reset() {
+  foreground = new Foreground();
+  globalTime = 0;
+}
+
+function draw() {
+  foreground.draw();
+}
+
+function update() {
+  globalTime += 1;
+  foreground.update(globalTime);
+}
+
+window.addEventListener('load', (event) => {
+  images.LOAD('#imageLoader img');
+  reset();
+  screen.set_mode('#screen', '#reset', '#pause');
+});
+</script>
+</body>
+
+</html>
