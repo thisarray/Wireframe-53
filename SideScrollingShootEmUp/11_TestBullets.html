@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TestBullets</title>
+  <script src="../../jsgame0.js"></script>
+  <style type="text/css" media="screen">
+body {
+  background-color: white;
+  color: black;
+}
+.hidden {
+  display: none;
+}
+#original {
+  margin-left: 1em;
+}
+  </style>
+</head>
+
+<body>
+<section id="imageLoader" class="hidden">
+  <img class="hidden" src="images/bullet.png" alt="bullet" data-name="bullet">
+</section>
+
+<main>
+<h1>TestBullets</h1>
+
+<canvas id="screen">
+The game screen appears here if your browser supports the Canvas API.
+</canvas>
+<section id="controls">
+  <button type="button" id="reset">Reset</button>
+  <button type="button" id="pause">Pause</button>
+</section>
+
+<h2>Attribution</h2>
+
+<p><a href="https://wireframe.raspberrypi.org/issues/53">Create your own side-scrolling shoot-'em-up, pages 58-63, by Jordi Sontanja</a>.</p>
+
+<p>Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported</a>.</p>
+
+<h2>Original Python code</h2>
+
+<pre id="original"><code>
+import pgzrun
+import math
+from random import randint
+from pgzero.builtins import Actor
+from shapely.geometry import Point, Polygon
+
+class Bullet:
+    def __init__(self, pos, speed):
+        self.actor = Actor(&#x27;bullet&#x27;, pos)
+        self.speed = speed
+    def update(self):
+        self.actor.x += self.speed[0]
+        self.actor.y += self.speed[1]
+    def draw(self):
+        self.actor.draw()
+class AllBullets:
+    def __init__(self):
+        self.bullets = []
+    def update(self):
+        for i in reversed(range(len(self.bullets))):
+            self.bullets[i].update()
+            if self.bullets[i].actor.x &lt; -4 or self.bullets[i].actor.y &lt; -4 or self.bullets[i].actor.x &gt; 804 or self.bullets[i].actor.y &gt; 604:
+                del self.bullets[i]
+    def draw(self):
+        for bullet in self.bullets:
+            bullet.draw()
+    def append(self, posX, posY, velX, velY):
+        self.bullets.append(Bullet((posX, posY), (velX, velY)))
+    def collide(self, polygon):
+        collided = False
+        for i in reversed(range(len(self.bullets))):
+            if Point(self.bullets[i].actor.x, self.bullets[i].actor.y).within(polygon):
+                collided = True
+                del self.bullets[i]
+        return collided
+
+bullets = AllBullets()
+for i in range(700):
+    speed = randint(1,3)
+    angle = randint(0,359) / 180 * math.pi
+    bullets.append(randint(0,800),randint(0,600), speed*math.sin(angle), speed*math.cos(angle))
+def draw():
+    screen.clear()
+    bullets.draw()
+def update():
+    bullets.update()
+    bullets.collide(Polygon([(350,250),(450,250),(450,350),(350,350)]))
+pgzrun.go()
+</code></pre>
+</main>
+
+<script>
+class Bullet {
+  constructor(pos, speed) {
+    this.actor = new Actor('bullet');
+    this.actor.pos = pos;
+    this.speed = speed;
+  }
+
+  draw() {
+    this.actor.draw();
+  }
+
+  update() {
+    this.actor.posx += this.speed[0];
+    this.actor.posy += this.speed[1];
+  }
+}
+
+class AllBullets {
+  constructor() {
+    this.bullets = [];
+  }
+
+  draw() {
+    for (let bullet of this.bullets) {
+      bullet.draw();
+    }
+  }
+
+  update() {
+    for (let i = (this.bullets.length - 1); i > -1; i--) {
+      this.bullets[i].update();
+      if ((this.bullets[i].actor.posx < -4) || (this.bullets[i].actor.posy < -4) || (this.bullets[i].actor.posx > 804) || (this.bullets[i].actor.posy > 604)) {
+        this.bullets.splice(i, 1);
+      }
+    }
+  }
+
+  append(posX, posY, velX, velY) {
+    this.bullets.push(new Bullet([posX, posY], [velX, velY]));
+  }
+
+  collide(target) {
+    let collided = false;
+    for (let i = (this.bullets.length - 1); i > -1; i--) {
+      if (target.collidepoint(this.bullets[i].actor.pos)) {
+        collided = true;
+        this.bullets.splice(i, 1);
+      }
+    }
+    return collided;
+  }
+}
+
+/*
+ * Return a random integer N such that min <= N < max.
+ */
+function getRandomInteger(min, max) {
+  min = Math.ceil(min);
+  max = Math.floor(max);
+  return Math.floor((Math.random() * (max - min)) + min);
+}
+
+var bullets;
+
+function reset() {
+  bullets = new AllBullets();
+  for (let i = 0; i < 700; i++) {
+    let speed = getRandomInteger(1, 4),
+        angle = getRandomInteger(0, 360) / 180 * Math.PI;
+    bullets.append(getRandomInteger(0, 801), getRandomInteger(0, 601), speed * Math.sin(angle), speed * Math.cos(angle));
+  }
+}
+
+function draw() {
+  screen.clear();
+  bullets.draw();
+}
+
+function update() {
+  bullets.update();
+  bullets.collide(new Rect(350, 250, 100, 100));
+}
+
+window.addEventListener('load', (event) => {
+  images.LOAD('#imageLoader img');
+  reset();
+  screen.set_mode('#screen', '#reset', '#pause');
+});
+</script>
+</body>
+
+</html>
