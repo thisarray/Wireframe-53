@@ -1,0 +1,229 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>CreatePath</title>
+  <script src="../../jsgame0.js"></script>
+  <style type="text/css" media="screen">
+body {
+  background-color: white;
+  color: black;
+}
+.hidden {
+  display: none;
+}
+#original {
+  margin-left: 1em;
+}
+  </style>
+</head>
+
+<body>
+
+<main>
+<h1>CreatePath</h1>
+
+<canvas id="screen">
+The game screen appears here if your browser supports the Canvas API.
+</canvas>
+<section id="controls">
+  <button type="button" id="reset">Reset</button>
+  <button type="button" id="pause">Pause</button>
+</section>
+
+<pre id="output"></pre>
+
+<h2>Attribution</h2>
+
+<p><a href="https://wireframe.raspberrypi.org/issues/53">Create your own side-scrolling shoot-'em-up, pages 58-63, by Jordi Sontanja</a>.</p>
+
+<p>Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported</a>.</p>
+
+<h2>Original Python code</h2>
+
+<pre id="original"><code>
+import pgzrun
+import pygame
+import math
+
+lines = [[]]
+currentLine = 0
+
+def addCosinus(scale, numberOfWaves):
+    global currentLine
+    steps = 810 // 10
+    for i in range(steps + 2):
+        lines[currentLine].append((800 - i*10, round(300 + scale * math.cos(numberOfWaves * i / steps * math.pi))))
+    currentLine += 1
+    lines.append([])
+
+for i in range(1, 5):
+    addCosinus(100, i)
+for i in range(1, 5):
+    addCosinus(-100, i)
+
+def addLoop(scaleX, scaleY, numberOfWaves):
+    global currentLine
+    steps = 810 // 10
+    for i in range(steps):
+        lines[currentLine].append((round(800 - i*10 + scaleX * math.sin(numberOfWaves * i / steps * math.pi)),
+                                   round(300 + scaleY * math.cos(numberOfWaves * i / steps * math.pi))))
+    currentLine += 1
+    lines.append([])
+
+addLoop(-200, 200, 5)
+addLoop(-200, 200, 2)
+addLoop(-200, -200, 5)
+addLoop(-200, -200, 2)
+
+usePoint = False
+lastPoint = (0,0)
+
+def draw():
+    screen.clear()
+    for i in range(1, len(lines[currentLine])):
+        screen.draw.line(lines[currentLine][i-1], lines[currentLine][i], (255,255,255))
+    if usePoint and len(lines[currentLine]) &gt; 0:
+        screen.draw.line(lines[currentLine][len(lines[currentLine])-1], lastPoint, (255,255,255))
+
+def update():
+    pass
+
+def on_mouse_down(pos, button):
+    global usePoint, lastPoint
+    usePoint = True
+    lastPoint = pos
+
+def on_mouse_up(pos):
+    global usePoint
+    lines[currentLine].append(pos)
+    usePoint = False
+
+def on_mouse_move(pos):
+    global lastPoint
+    lastPoint = pos
+
+def on_key_down(key):
+    global currentLine
+    if key == keys.SPACE:
+        linesAtZero = [[(lines[j][i][0], lines[j][i][1] - lines[j][0][1]) for i in range(len(lines[j]))] for j in range(len(lines))]
+        print(str(linesAtZero))
+    elif len(lines[currentLine]) &gt; 0 and (key == keys.BACKSPACE or key == keys.DELETE):
+        lines[currentLine].pop(len(lines[currentLine]) - 1)
+    elif key == keys.LEFT:
+        currentLine = (currentLine - 1) % len(lines);
+    elif key == keys.RIGHT:
+        currentLine = (currentLine + 1) % len(lines)
+    elif key == keys.PLUS or key == keys.KP_PLUS:
+        currentLine = len(lines)
+        lines.append([])
+
+pgzrun.go()
+
+</code></pre>
+</main>
+
+<script>
+const output = document.querySelector('#output');
+
+function addCosinus(scale, numberOfWaves) {
+  let steps = Math.floor(810 / 10);
+  for (let i = 0; i < (steps + 2); i++) {
+    lines[currentLine].push([800 - (i * 10), Math.round(300 + (scale * Math.cos(numberOfWaves * i / steps * Math.PI)))]);
+  }
+  currentLine += 1;
+  lines.push([]);
+}
+
+function addLoop(scaleX, scaleY, numberOfWaves) {
+  let steps = Math.floor(810 / 10);
+  for (let i = 0; i < steps; i++) {
+    lines[currentLine].push([Math.round(800 - (i * 10) + (scaleX * Math.sin(numberOfWaves * i / steps * Math.PI))),
+                             Math.round(300 + (scaleY * Math.cos(numberOfWaves * i / steps * Math.PI)))]);
+  }
+  currentLine += 1;
+  lines.push([]);
+}
+
+var lines, currentLine, usePoint, lastPoint;
+
+function reset() {
+  lines = [[]];
+  currentLine = 0;
+
+  for (let i = 1; i < 5; i++) {
+    addCosinus(100, i);
+  }
+  for (let i = 1; i < 5; i++) {
+    addCosinus(-100, i);
+  }
+  addLoop(-200, 200, 5);
+  addLoop(-200, 200, 2);
+  addLoop(-200, -200, 5);
+  addLoop(-200, -200, 2);
+
+  usePoint = false;
+  lastPoint = [0, 0];
+}
+
+function draw() {
+  screen.clear();
+  for (let i = 1; i < lines[currentLine].length; i++) {
+    screen.draw.line(lines[currentLine][i-1], lines[currentLine][i], [255, 255, 255]);
+  }
+  if (usePoint && (lines[currentLine].length > 0)) {
+    screen.draw.line(lines[currentLine][lines[currentLine].length-1], lastPoint, [255, 255, 255]);
+  }
+}
+
+function on_mouse_down(pos, button) {
+  usePoint = true;
+  lastPoint = pos;
+}
+
+function on_mouse_up(pos) {
+  lines[currentLine].push(pos);
+  usePoint = false;
+}
+
+function on_mouse_move(pos) {
+  lastPoint = pos;
+}
+
+function on_key_down(key) {
+  if (key === keys.SPACE) {
+    let linesAtZero = [];
+    for (let j = 0; j < lines.length; j++) {
+      linesAtZero.push([]);
+      for (let i = 0; i < lines[j].length; i++) {
+        linesAtZero[j].push([lines[j][i][0], lines[j][i][1] - lines[j][0][1]]);
+      }
+    }
+    console.log(JSON.stringify(linesAtZero));
+    output.textContent = JSON.stringify(linesAtZero);
+  }
+  else if ((lines[currentLine].length > 0) && ((key === keys.BACKSPACE) || (key === keys.DELETE))) {
+    lines[currentLine].pop();
+  }
+  else if (key === keys.LEFT) {
+    currentLine = (currentLine + lines.length - 1) % lines.length;
+  }
+  else if (key === keys.RIGHT) {
+    currentLine = (currentLine + 1) % lines.length;
+  }
+  else if ((key === keys.PLUS) || (key === keys.KP_PLUS)) {
+    currentLine = lines.length;
+    lines.push([]);
+  }
+}
+
+window.addEventListener('load', (event) => {
+  reset();
+  screen.set_mode('#screen', '#reset', '#pause');
+});
+</script>
+</body>
+
+</html>
