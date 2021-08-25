@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+
+<html lang="en-US">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Crash Test</title>
+  <script src="../../jsgame0.js"></script>
+  <script id="level" type="application/json">
+{
+  "foreground": [["leftforeground_narrow", 1634, 571], ["centreforeground_narrow", 1831, 571], ["centreforeground_narrow", 2072, 571], ["centreforeground_narrow", 2314, 571], ["leftvertforeground_narrow", 2420, 506], ["centreforeground", 2557, 569], ["centreforeground", 2800, 569], ["centreforeground", 3041, 569],
+                 ["centreforeground", 3284, 569], ["centreforeground", 3525, 569], ["centreforeground", 3767, 569], ["leftforeground_narrow_top", 3840, 31], ["centreforeground", 4009, 569], ["centreforeground_narrow_top", 4038, 31], ["centreforeground", 4250, 569], ["centreforeground_narrow_top", 4280, 31],
+                 ["centreforeground", 4492, 569], ["centreforeground_narrow_top", 4522, 31], ["centreforeground", 4734, 569], ["centreforeground_narrow_top", 4765, 31], ["centreforeground", 4976, 569], ["centreforeground_narrow_top", 5008, 31], ["leftforeground_narrow", 5081, 249], ["leftforeground_narrow_top", 5081, 314],
+                 ["centreforeground", 5219, 569], ["centreforeground_narrow_top", 5251, 31], ["centreforeground_narrow", 5278, 249], ["centreforeground_narrow_top", 5279, 314], ["centreforeground", 5462, 569], ["centreforeground_narrow_top", 5493, 31], ["centreforeground_narrow", 5521, 249], ["centreforeground_narrow_top", 5522, 314],
+                 ["centreforeground", 5704, 569], ["centreforeground_narrow_top", 5736, 31], ["centreforeground_narrow", 5763, 249], ["centreforeground_narrow_top", 5763, 314], ["centreforeground", 5946, 569], ["centreforeground_narrow_top", 5978, 31], ["centreforeground_narrow", 6006, 249], ["centreforeground_narrow_top", 6006, 314],
+                 ["centreforeground", 6189, 569], ["centreforeground_narrow_top", 6221, 31], ["centreforeground_narrow", 6249, 249], ["centreforeground_narrow_top", 6249, 314], ["centreforeground", 6432, 569], ["centreforeground_narrow_top", 6463, 31], ["rightforeground_narrow", 6446, 249], ["rightforeground_narrow_top", 6447, 314],
+                 ["centreforeground", 6675, 569], ["centreforeground_narrow_top", 6706, 31], ["centreforeground", 6918, 569], ["centreforeground_narrow_top", 6949, 31], ["centreforeground", 7161, 569], ["centreforeground_narrow_top", 7191, 31], ["centreforeground", 7403, 569], ["centreforeground_narrow_top", 7433, 31], ["centreforeground", 7645, 569],
+                 ["centreforeground_narrow_top", 7675, 31], ["centreforeground", 7887, 569], ["rightforeground_narrow_top", 7873, 31], ["centreforeground", 8128, 569], ["centreforeground", 8370, 569], ["centreforeground", 8613, 569], ["centreforeground", 8856, 569], ["leftforeground", 9112, 377], ["centre", 9099, 549],
+                 ["centre", 9342, 549], ["centreforeground", 9438, 377], ["centre", 9585, 548], ["centreforeground", 9680, 377], ["centre", 9827, 546], ["centreforeground", 9923, 377], ["centre", 10069, 546], ["centreforeground", 10166, 377],
+                 ["centre", 10310, 546], ["centreforeground", 10409, 377], ["centre", 10551, 546], ["centreforeground", 10652, 377], ["centre", 10652, 543], ["rightvertforeground", 10788, 548], ["rightvertforeground", 10788, 377]],
+  "enemy": {
+    "ball": {
+      "hits": 1,
+      "path": [[832, 0], [790, 1], [780, 5], [770, 11], [760, 19], [750, 29], [740, 40], [730, 53], [720, 68], [710, 83], [700, 98], [690, 114], [680, 129], [670, 143], [660, 157], [650, 169], [640, 179], [630, 188], [620, 194], [610, 198], [600, 200], [590, 199], [580, 196], [570, 191], [560, 184], [550, 174], [540, 163], [530, 150], [520, 136], [510, 121], [500, 106], [490, 90], [480, 75], [470, 60], [460, 47], [450, 34], [440, 23], [430, 14], [420, 7], [410, 3], [400, 0], [390, 0], [380, 3], [370, 7], [360, 14], [350, 23], [340, 34], [330, 47], [320, 60], [310, 75], [300, 90], [290, 106], [280, 121], [270, 136], [260, 150], [250, 163], [240, 174], [230, 184], [220, 191], [210, 196], [200, 199], [190, 200], [180, 198], [170, 194], [160, 188], [150, 179], [140, 169], [130, 157], [120, 143], [110, 129], [100, 114], [90, 98], [80, 83], [70, 68], [60, 53], [50, 40], [40, 29], [30, 19], [20, 11], [10, 5], [0, 1], [-10, 0], [-160, 0]],
+      "speed": 4,
+      "powerup": true
+    },
+    "cannon": {
+      "hits": 4,
+      "path": [[824, 0], [-160, 0]],
+      "speed": 1,
+      "bullets": "more"
+    },
+    "cannon_top": {
+      "hits": 4,
+      "path": [[824, 0], [-160, 0]],
+      "speed": 1,
+      "bullets": "more"
+    },
+    "flying_saucer": {
+      "hits": 10,
+      "path": [[857, 0], [790, -1], [780, -3], [770, -6], [760, -11], [750, -16], [740, -23], [730, -31], [720, -40], [710, -50], [700, -60], [690, -71], [680, -83], [670, -94], [660, -106], [650, -117], [640, -129], [630, -140], [620, -150], [610, -160], [600, -169], [590, -177], [580, -184], [570, -189], [560, -194], [550, -197], [540, -199], [530, -200], [520, -199], [510, -197], [500, -194], [490, -189], [480, -184], [470, -177], [460, -169], [450, -160], [440, -150], [430, -140], [420, -129], [410, -117], [400, -106], [390, -94], [380, -83], [370, -71], [360, -60], [350, -50], [340, -40], [330, -31], [320, -23], [310, -16], [300, -11], [290, -6], [280, -3], [270, -1], [260, 0], [250, -1], [240, -3], [230, -6], [220, -11], [210, -16], [200, -23], [190, -31], [180, -40], [170, -50], [160, -60], [150, -71], [140, -83], [130, -94], [120, -106], [110, -117], [100, -129], [90, -140], [80, -150], [70, -160], [60, -169], [50, -177], [40, -184], [30, -189], [20, -194], [10, -197], [0, -199], [-10, -200], [-160, -200]],
+      "speed": 3,
+      "bullets": "some"
+    },
+    "rocket": {
+      "hits": 1,
+      "path": [[885, 0], [-160, 0]],
+      "speed": 6,
+      "movement": "accelerate"
+    },
+    "ship_alien": {
+      "hits": 1,
+      "path": [[850, 0], [762, 0], [711, -5], [680, -13], [663, -21], [634, -34], [608, -42], [578, -52], [522, -62], [459, -66], [-160, -66]],
+      "speed": 4
+    },
+    "ship_cannon": {
+      "hits": 12,
+      "path": [[875, 0], [790, 0], [780, 0], [770, 1], [760, 1], [750, 2], [740, 3], [730, 4], [720, 5], [710, 6], [700, 7], [690, 9], [680, 11], [670, 12], [660, 14], [650, 16], [640, 19], [630, 21], [620, 23], [610, 26], [600, 29], [590, 31], [580, 34], [570, 37], [560, 40], [550, 43], [540, 47], [530, 50], [520, 53], [510, 57], [500, 60], [490, 64], [480, 68], [470, 71], [460, 75], [450, 79], [440, 83], [430, 86], [420, 90], [410, 94], [400, 98], [390, 102], [380, 106], [370, 110], [360, 114], [350, 117], [340, 121], [330, 125], [320, 129], [310, 132], [300, 136], [290, 140], [280, 143], [270, 147], [260, 150], [250, 153], [240, 157], [230, 160], [220, 163], [210, 166], [200, 169], [190, 171], [180, 174], [170, 177], [160, 179], [150, 181], [140, 184], [130, 186], [120, 188], [110, 189], [100, 191], [90, 193], [80, 194], [70, 195], [60, 196], [50, 197], [40, 198], [30, 199], [20, 199], [10, 200], [0, 200], [-160, 200]],
+      "speed": 2,
+      "bullets": "more"
+    },
+    "ship_fighter": {
+      "hits": 6,
+      "path": [[863, 0], [790, 0], [780, 1], [770, 3], [760, 5], [750, 7], [740, 11], [730, 14], [720, 19], [710, 23], [700, 29], [690, 34], [680, 40], [670, 47], [660, 53], [650, 60], [640, 68], [630, 75], [620, 83], [610, 90], [600, 98], [590, 106], [580, 114], [570, 121], [560, 129], [550, 136], [540, 143], [530, 150], [520, 157], [510, 163], [500, 169], [490, 174], [480, 179], [470, 184], [460, 188], [450, 191], [440, 194], [430, 196], [420, 198], [410, 199], [400, 200], [390, 200], [380, 199], [370, 198], [360, 196], [350, 194], [340, 191], [330, 188], [320, 184], [310, 179], [300, 174], [290, 169], [280, 163], [270, 157], [260, 150], [250, 143], [240, 136], [230, 129], [220, 121], [210, 114], [200, 106], [190, 98], [180, 90], [170, 83], [160, 75], [150, 68], [140, 60], [130, 53], [120, 47], [110, 40], [100, 34], [90, 29], [80, 23], [70, 19], [60, 14], [50, 11], [40, 7], [30, 5], [20, 3], [10, 1], [0, 0], [-160, 0]],
+      "speed": 4,
+      "bullets": "more"
+    },
+    "ship_pistol": {
+      "hits": 12,
+      "path": [[851, 0], [751, 4], [704, 15], [660, 33], [620, 57], [585, 87], [556, 121], [535, 158], [520, 196], [513, 235], [513, 272], [521, 307], [535, 337], [554, 363], [577, 382], [604, 395], [632, 400], [661, 398], [688, 388], [713, 371], [734, 348], [750, 319], [760, 286], [764, 250], [760, 212], [748, 173], [729, 135], [703, 100], [671, 68], [633, 42], [590, 21], [544, 7], [495, 1], [447, 1], [399, 10], [353, 25], [311, 47], [274, 74], [243, 107], [218, 143], [201, 181], [191, 219], [188, 257], [193, 293], [204, 326], [221, 353], [243, 375], [269, 390], [297, 399], [325, 399], [354, 393], [380, 379], [403, 358], [421, 332], [433, 300], [439, 265], [438, 227], [430, 188], [414, 150], [390, 114], [360, 81], [324, 52], [283, 29], [238, 12], [191, 2], [142, 0], [-160, 0]],
+      "speed": 3,
+      "bullets": "more"
+    },
+    "big_ship": {
+      "hits": 1000,
+      "path": [[980, 0], [624, 0]],
+      "speed": 0.5,
+      "movement": "boss",
+      "bullets": "boss"
+    }
+  },
+  "start": [["ship_alien",    275,   245], ["ship_alien",    261,   315], ["ship_alien",    245,   381], ["ship_alien",    230,   454], ["ship_alien",    210,   529],
+            ["ship_alien",    513,   650], ["ship_alien",    496,   738], ["ship_alien",    483,   805], ["ship_alien",    465,   877], ["ship_alien",    445,   944],
+            ["ball",          106,  1000], ["ship_fighter",  188,  1190], ["ship_fighter",  208,  1264], ["ship_fighter",  221,  1346], ["ship_fighter",  237,  1436],
+            ["ship_fighter",  253,  1509], ["ball",          106,  1833], ["cannon",        444,  2000], ["cannon",        444,  2080], ["cannon",        444,  2160],
+            ["rocket",        122,  2602], ["rocket",        173,  2659], ["rocket",        232,  2728], ["rocket",        297,  2798], ["rocket",        353,  2879],
+            ["rocket",        298,  2968], ["rocket",        223,  3046], ["rocket",        160,  3120], ["cannon",        444,  3620], ["cannon",        444,  3700],
+            ["cannon",        444,  3780], ["cannon_top",     94,  3960], ["cannon_top",     94,  4040], ["cannon_top",     94,  4120], ["ship_alien",    441,  4489],
+            ["ship_alien",    441,  4573], ["ship_alien",    180,  4760], ["ship_alien",    180,  4807], ["ship_alien",    180,  4860], ["ship_alien",    441,  4971],
+            ["ship_alien",    441,  5016], ["ship_alien",    441,  5080], ["rocket",        140,  5416], ["rocket",        408,  5540], ["rocket",        133,  5618],
+            ["rocket",        419,  5694], ["ship_alien",    233,  5908], ["ship_fighter",  157,  6457], ["ship_fighter",  171,  6558], ["ship_fighter",  198,  6617],
+            ["ship_fighter",  234,  6673], ["flying_saucer", 385,  7027], ["flying_saucer", 378,  7154], ["flying_saucer", 352,  7238], ["ship_alien",    392,  7564],
+            ["ship_alien",    339,  7597], ["ship_alien",    281,  7631], ["ship_alien",    237,  7678], ["ship_alien",    194,  7780], ["ship_cannon",    94,  7987],
+            ["ship_cannon",   114,  8175], ["ship_cannon",   161,  8300], ["ship_cannon",   209,  8484], ["cannon",        252,  9000], ["cannon",        252,  9080],
+            ["cannon",        252,  9160], ["cannon",        252,  9240], ["cannon",        252,  9320], ["ship_alien",    192,  9688], ["ship_alien",    174,  9731],
+            ["ship_alien",    150,  9782], ["ship_alien",    130,  9835], ["ship_alien",    111,  9899], ["ball",          164, 10644], ["flying_saucer", 480, 10903],
+            ["flying_saucer", 431, 10943], ["flying_saucer", 394, 10979], ["flying_saucer", 350, 11017], ["flying_saucer", 292, 11071], ["ship_pistol",   117, 11392],
+            ["ship_pistol",   125, 11507], ["ship_pistol",   151, 11611], ["ship_pistol",   179, 11756], ["ship_pistol",   131, 11988], ["ship_pistol",   100, 12098],
+            ["ship_pistol",    68, 12249], ["ship_pistol",    97, 12413], ["ball",          189, 12842], ["ship_alien",    190, 13524], ["ship_alien",    210, 13561],
+            ["ship_alien",    231, 13598], ["ship_alien",    247, 13637], ["ship_alien",    488, 13686], ["ship_alien",    454, 13712], ["ship_alien",    432, 13745],
+            ["ship_alien",    414, 13769], ["ship_alien",    150, 13811], ["ship_alien",    438, 13845], ["ship_alien",    147, 13882], ["ship_alien",    433, 13919],
+            ["ship_alien",    143, 13958], ["ship_alien",    428, 13992], ["ship_alien",    153, 14033], ["ship_alien",    416, 14075], ["ship_pistol",   138, 14288],
+            ["ship_pistol",   151, 14327], ["ship_pistol",   138, 14381], ["ship_pistol",   121, 14415], ["ship_pistol",    93, 14461], ["ball",          181, 14915],
+            ["big_ship",      300, 15369]]
+}
+  </script>
+  <style type="text/css" media="screen">
+body {
+  background-color: white;
+  color: black;
+}
+.hidden {
+  display: none;
+}
+#original {
+  margin-left: 1em;
+}
+  </style>
+</head>
+
+<body>
+<section id="imageLoader" class="hidden">
+  <img class="hidden" src="images/background_0.png" alt="background_0" data-name="background_0">
+  <img class="hidden" src="images/background_1.png" alt="background_1" data-name="background_1">
+  <img class="hidden" src="images/ball.png" alt="ball" data-name="ball">
+  <img class="hidden" src="images/ball_white.png" alt="ball_white" data-name="ball_white">
+  <img class="hidden" src="images/big_ship.png" alt="big_ship" data-name="big_ship">
+  <img class="hidden" src="images/big_ship_white.png" alt="big_ship_white" data-name="big_ship_white">
+  <img class="hidden" src="images/bullet.png" alt="bullet" data-name="bullet">
+  <img class="hidden" src="images/cannon.png" alt="cannon" data-name="cannon">
+  <img class="hidden" src="images/cannon_top.png" alt="cannon_top" data-name="cannon_top">
+  <img class="hidden" src="images/cannon_top_white.png" alt="cannon_top_white" data-name="cannon_top_white">
+  <img class="hidden" src="images/cannon_white.png" alt="cannon_white" data-name="cannon_white">
+  <img class="hidden" src="images/centre.png" alt="centre" data-name="centre">
+  <img class="hidden" src="images/centreforeground.png" alt="centreforeground" data-name="centreforeground">
+  <img class="hidden" src="images/centreforeground_narrow.png" alt="centreforeground_narrow" data-name="centreforeground_narrow">
+  <img class="hidden" src="images/centreforeground_narrow_top.png" alt="centreforeground_narrow_top" data-name="centreforeground_narrow_top">
+  <img class="hidden" src="images/centreforeground_top.png" alt="centreforeground_top" data-name="centreforeground_top">
+  <img class="hidden" src="images/explosion_0.png" alt="explosion_0" data-name="explosion_0">
+  <img class="hidden" src="images/explosion_1.png" alt="explosion_1" data-name="explosion_1">
+  <img class="hidden" src="images/explosion_2.png" alt="explosion_2" data-name="explosion_2">
+  <img class="hidden" src="images/explosion_3.png" alt="explosion_3" data-name="explosion_3">
+  <img class="hidden" src="images/explosion_4.png" alt="explosion_4" data-name="explosion_4">
+  <img class="hidden" src="images/explosion_5.png" alt="explosion_5" data-name="explosion_5">
+  <img class="hidden" src="images/explosion_6.png" alt="explosion_6" data-name="explosion_6">
+  <img class="hidden" src="images/explosion_7.png" alt="explosion_7" data-name="explosion_7">
+  <img class="hidden" src="images/explosion_8.png" alt="explosion_8" data-name="explosion_8">
+  <img class="hidden" src="images/explosion_9.png" alt="explosion_9" data-name="explosion_9">
+  <img class="hidden" src="images/flying_saucer.png" alt="flying_saucer" data-name="flying_saucer">
+  <img class="hidden" src="images/flying_saucer_white.png" alt="flying_saucer_white" data-name="flying_saucer_white">
+  <img class="hidden" src="images/impact_0.png" alt="impact_0" data-name="impact_0">
+  <img class="hidden" src="images/impact_1.png" alt="impact_1" data-name="impact_1">
+  <img class="hidden" src="images/impact_2.png" alt="impact_2" data-name="impact_2">
+  <img class="hidden" src="images/impact_3.png" alt="impact_3" data-name="impact_3">
+  <img class="hidden" src="images/impact_4.png" alt="impact_4" data-name="impact_4">
+  <img class="hidden" src="images/impact_5.png" alt="impact_5" data-name="impact_5">
+  <img class="hidden" src="images/impact_6.png" alt="impact_6" data-name="impact_6">
+  <img class="hidden" src="images/impact_7.png" alt="impact_7" data-name="impact_7">
+  <img class="hidden" src="images/laser.png" alt="laser" data-name="laser">
+  <img class="hidden" src="images/leftforeground.png" alt="leftforeground" data-name="leftforeground">
+  <img class="hidden" src="images/lives.png" alt="lives" data-name="lives">
+  <img class="hidden" src="images/leftforeground_narrow.png" alt="leftforeground_narrow" data-name="leftforeground_narrow">
+  <img class="hidden" src="images/leftforeground_narrow_top.png" alt="leftforeground_narrow_top" data-name="leftforeground_narrow_top">
+  <img class="hidden" src="images/leftforeground_top.png" alt="leftforeground_top" data-name="leftforeground_top">
+  <img class="hidden" src="images/leftvertforeground.png" alt="leftvertforeground" data-name="leftvertforeground">
+  <img class="hidden" src="images/leftvertforeground_narrow.png" alt="leftvertforeground_narrow" data-name="leftvertforeground_narrow">
+  <img class="hidden" src="images/leftvertforeground_narrow_top.png" alt="leftvertforeground_narrow_top" data-name="leftvertforeground_narrow_top">
+  <img class="hidden" src="images/leftvertforeground_top.png" alt="leftvertforeground_top" data-name="leftvertforeground_top">
+  <img class="hidden" src="images/plus.png" alt="plus" data-name="plus">
+  <img class="hidden" src="images/rightforeground.png" alt="rightforeground" data-name="rightforeground">
+  <img class="hidden" src="images/rightforeground_narrow.png" alt="rightforeground_narrow" data-name="rightforeground_narrow">
+  <img class="hidden" src="images/rightforeground_narrow_top.png" alt="rightforeground_narrow_top" data-name="rightforeground_narrow_top">
+  <img class="hidden" src="images/rightforeground_top.png" alt="rightforeground_top" data-name="rightforeground_top">
+  <img class="hidden" src="images/rightvertforeground.png" alt="rightvertforeground" data-name="rightvertforeground">
+  <img class="hidden" src="images/rightvertforeground_narrow.png" alt="rightvertforeground_narrow" data-name="rightvertforeground_narrow">
+  <img class="hidden" src="images/rocket.png" alt="rocket" data-name="rocket">
+  <img class="hidden" src="images/rightvertforeground_narrow_top.png" alt="rightvertforeground_narrow_top" data-name="rightvertforeground_narrow_top">
+  <img class="hidden" src="images/rightvertforeground_top.png" alt="rightvertforeground_top" data-name="rightvertforeground_top">
+  <img class="hidden" src="images/rocket_white.png" alt="rocket_white" data-name="rocket_white">
+  <img class="hidden" src="images/ship_alien.png" alt="ship_alien" data-name="ship_alien">
+  <img class="hidden" src="images/ship_alien_white.png" alt="ship_alien_white" data-name="ship_alien_white">
+  <img class="hidden" src="images/ship_cannon.png" alt="ship_cannon" data-name="ship_cannon">
+  <img class="hidden" src="images/ship_cannon_white.png" alt="ship_cannon_white" data-name="ship_cannon_white">
+  <img class="hidden" src="images/ship_fighter.png" alt="ship_fighter" data-name="ship_fighter">
+  <img class="hidden" src="images/ship_fighter_white.png" alt="ship_fighter_white" data-name="ship_fighter_white">
+  <img class="hidden" src="images/ship_pistol.png" alt="ship_pistol" data-name="ship_pistol">
+  <img class="hidden" src="images/ship_pistol_white.png" alt="ship_pistol_white" data-name="ship_pistol_white">
+  <img class="hidden" src="images/spaceship.png" alt="spaceship" data-name="spaceship">
+  <img class="hidden" src="images/text_0.png" alt="text_0" data-name="text_0">
+  <img class="hidden" src="images/text_1.png" alt="text_1" data-name="text_1">
+  <img class="hidden" src="images/text_2.png" alt="text_2" data-name="text_2">
+  <img class="hidden" src="images/text_3.png" alt="text_3" data-name="text_3">
+</section>
+
+<main>
+<h1>Crash Test</h1>
+
+<canvas id="screen">
+The game screen appears here if your browser supports the Canvas API.
+</canvas>
+<section id="controls">
+  <button type="button" id="reset">Reset</button>
+  <button type="button" id="pause">Pause</button>
+</section>
+
+<h2>Attribution</h2>
+
+<p><a href="https://wireframe.raspberrypi.org/issues/53">Create your own side-scrolling shoot-'em-up, pages 58-63, by Jordi Sontanja</a>.</p>
+
+<p>Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported</a>.</p>
+
+</main>
+
+<script>
+WIDTH = 640;
+HEIGHT = 480;
+
+const LEVEL_DATA = JSON.parse(document.querySelector('#level').textContent);
+
+/*
+ * A white-on-black bit array Mask for an image.
+ *
+ * The transparent parts of an image are 0 and the visible parts are 1.
+ */
+class Mask {
+  constructor(width, height) {
+    if (typeof width !== 'number') {
+      throw new TypeError('width must be a positive number.');
+    }
+    if (typeof height !== 'number') {
+      throw new TypeError('height must be a positive number.');
+    }
+    if (width <= 0) {
+      throw new RangeError('width must be a positive number.');
+    }
+    if (height <= 0) {
+      throw new RangeError('height must be a positive number.');
+    }
+
+    this.width = width;
+    this.height = height;
+    this.data = new Array(this.width * this.height).fill(0);
+  }
+
+  /*
+   * Return the number index for (x, y).
+   */
+  _coordinatesToIndex(x, y) {
+    return x + (y * this.width);
+  }
+
+  /*
+   * Return the bit at (x, y).
+   */
+  get(x, y) {
+    if (x < 0) {
+      return 0;
+    }
+    if (y < 0) {
+      return 0;
+    }
+    if (x >= this.width) {
+      return 0;
+    }
+    if (y >= this.height) {
+      return 0;
+    }
+    return this.data[this._coordinatesToIndex(x, y)];
+  }
+
+  /*
+   * Set the bit at (x, y) to value.
+   */
+  set(x, y, value) {
+    if (x < 0) {
+      return;
+    }
+    if (y < 0) {
+      return;
+    }
+    if (x >= this.width) {
+      return;
+    }
+    if (y >= this.height) {
+      return;
+    }
+    if (value === 0) {
+      this.data[this._coordinatesToIndex(x, y)] = 0;
+    }
+    else if (value === 1) {
+      this.data[this._coordinatesToIndex(x, y)] = 1;
+    }
+  }
+
+  /*
+   * Return true if the image has no transparent part.
+   */
+  isSolid() {
+    return this.data.every(b => (b === 1));
+  }
+
+  /*
+   * A short test suite to confirm the Mask class works.
+   */
+  static test() {
+    let mask = new Mask(1, 1);
+    console.assert(mask.width === 1,
+                   {msg: 'mask.width is incorrect.'});
+    console.assert(mask.height === 1,
+                   {msg: 'mask.height is incorrect.'});
+    console.assert(mask.data.length === 1,
+                   {msg: 'mask.data is incorrect.'});
+    console.assert(mask.data[0] === 0,
+                   {msg: 'mask.data is incorrect.'});
+    console.assert(mask.get(0, 0) === 0,
+                   {msg: 'mask.get() failed.'});
+    console.assert(!mask.isSolid(),
+                   {msg: 'mask.isSolid() failed.'});
+
+    mask.set(0, 0, 1);
+    console.assert(mask.width === 1,
+                   {msg: 'mask.width is incorrect.'});
+    console.assert(mask.height === 1,
+                   {msg: 'mask.height is incorrect.'});
+    console.assert(mask.data.length === 1,
+                   {msg: 'mask.data is incorrect.'});
+    console.assert(mask.data[0] === 1,
+                   {msg: 'mask.data is incorrect.'});
+    console.assert(mask.get(0, 0) === 1,
+                   {msg: 'mask.get() failed.'});
+    console.assert(mask.isSolid(),
+                   {msg: 'mask.isSolid() failed.'});
+  }
+}
+Mask.test();
+
+class MaskedActor extends Actor {
+  /*
+   * Map the string name of the image to its Mask object.
+   */
+  static MASK_MAP = new Map();
+
+  collidepoint(pos) {
+    if (super.collidepoint(pos)) {
+      // If pos is within bounds, then check if it is at a visible pixel
+      let mask = MaskedActor.MASK_MAP.get(this.name);
+      if (mask instanceof Mask) {
+        return (mask.get(pos[0] - this.x, pos[1] - this.y) === 1);
+      }
+      return true;
+    }
+    return false;
+  }
+
+  collideactor(actor) {
+    if (this.colliderect(actor)) {
+      // If actor overlaps, then do more detailed collision detection
+      let overlapLeft = Math.max(this.x, actor.x),
+          overlapTop = Math.max(this.y, actor.y),
+          overlapRight = Math.min(this.right, actor.right),
+          overlapBottom = Math.min(this.bottom, actor.bottom),
+          thisMask = MaskedActor.MASK_MAP.get(this.name),
+          otherMask = MaskedActor.MASK_MAP.get(actor.name);
+      if (!(thisMask instanceof Mask)) {
+        // If there is no mask for this instance, then return the result of colliderect()
+        return true;
+      }
+
+      for (let x = overlapLeft; x < overlapRight; x++) {
+        for (let y = overlapTop; y < overlapBottom; y++) {
+          if (thisMask.get(x - this.x, y - this.y) === 1) {
+          // If the current pixel is visible for this instance
+            if (otherMask instanceof Mask) {
+              // If there is a mask for actor, then check if the current pixel is visible for actor
+              if (otherMask.get(x - actor.x, y - actor.y) === 1) {
+                return true;
+              }
+            }
+            else {
+              // There is no mask for actor so assume all of actor is visible
+              // Then we have a collision
+              return true;
+            }
+          }
+        }
+      }
+    }
+    return false;
+  }
+}
+
+var names, currentTarget, spaceship, target, collided;
+
+function loadLevel() {
+  let nameSet = new Set(['spaceship']),
+      width, height, mask, surface, color;
+
+  // Add the names of foreground actually used in the level
+  for (let [name, x, y] of LEVEL_DATA['foreground']) {
+    nameSet.add(name);
+  }
+  // Add the names of enemies actually used in the level
+  for (let [name, y, x] of LEVEL_DATA['start']) {
+    nameSet.add(name);
+  }
+
+  for (let name of nameSet) {
+    width = images[name].width;
+    height = images[name].height;
+    mask = new Mask(width, height);
+    screen.clear('transparent');
+    screen.blit(name, [0, 0]);
+    surface = screen.getSurface(width, height);
+    for (let x = 0; x < width; x++) {
+      for (let y = 0; y < height; y++) {
+        color = surface.getAt(x, y);
+        if (color[3] !== 0) {
+          mask.set(x, y, 1);
+        }
+      }
+    }
+    if (!mask.isSolid()) {
+      // Only use the mask if there is a transparent part in the image
+      MaskedActor.MASK_MAP.set(name, mask);
+    }
+  }
+
+  names = Array.from(nameSet);
+  names.sort();
+}
+
+function reset() {
+  loadLevel();
+
+  currentTarget = 1;
+  resetTarget(names[currentTarget]);
+}
+
+function resetTarget(name) {
+  spaceship = new MaskedActor('spaceship');
+  spaceship.left = 0;
+  spaceship.posy = Math.floor(HEIGHT / 2);
+
+  target = new MaskedActor(name);
+  target.right = WIDTH;
+  target.posy = Math.floor(HEIGHT / 2);
+
+  collided = false;
+}
+
+function draw() {
+  screen.clear();
+  spaceship.draw();
+  screen.draw.rect(new Rect(spaceship), 'green', 1);
+  target.draw();
+  screen.draw.rect(new Rect(target), 'red', 1);
+  screen.draw.text(names[currentTarget], {
+    fontsize: 20,
+    color: 'white',
+    midbottom: [Math.floor(WIDTH / 2), HEIGHT - 20]
+  });
+
+  if (collided) {
+    screen.draw.text('CRASHED!', {
+      fontsize: 40,
+      color: 'white',
+      midtop: [Math.floor(WIDTH / 2), 20]
+    });
+  }
+}
+
+function update() {
+  if (!collided) {
+    spaceship.posx += 1;
+    collided = spaceship.collideactor(target);
+    if (spaceship.right > WIDTH) {
+      collided = true;
+    }
+  }
+}
+
+function on_key_down(key) {
+  if ((key === keys.LEFT) || (key === keys.PAGEUP)) {
+    currentTarget = (currentTarget + names.length - 1) % names.length;
+    resetTarget(names[currentTarget]);
+  }
+  else if ((key === keys.RIGHT) || (key === keys.PAGEDOWN)) {
+    currentTarget = (currentTarget + 1) % names.length;
+    resetTarget(names[currentTarget]);
+  }
+  else if (!collided) {
+    if (key === keys.UP) {
+      spaceship.posy -= 5;
+    }
+    else if (key === keys.DOWN) {
+      spaceship.posy += 5;
+    }
+  }
+}
+
+window.addEventListener('load', (event) => {
+  images.LOAD('#imageLoader img');
+  // Non-standard order for Surface
+  screen.set_mode('#screen', '#reset', '#pause');
+  reset();
+  screen.draw.playButton();
+});
+</script>
+</body>
+
+</html>
