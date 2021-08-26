@@ -353,18 +353,22 @@ class MaskedActor extends Actor {
     return false;
   }
 
-  collideactor(actor) {
-    if (this.colliderect(actor)) {
+  colliderect(actor) {
+    if (super.colliderect(actor)) {
       // If actor overlaps, then do more detailed collision detection
       let overlapLeft = Math.max(this.x, actor.x),
           overlapTop = Math.max(this.y, actor.y),
           overlapRight = Math.min(this.right, actor.right),
           overlapBottom = Math.min(this.bottom, actor.bottom),
           thisMask = MaskedActor.MASK_MAP.get(this.name),
-          otherMask = MaskedActor.MASK_MAP.get(actor.name);
+          otherMask;
       if (!(thisMask instanceof Mask)) {
         // If there is no mask for this instance, then return the result of colliderect()
         return true;
+      }
+
+      if (actor instanceof MaskedActor) {
+        otherMask = MaskedActor.MASK_MAP.get(actor.name);
       }
 
       for (let x = overlapLeft; x < overlapRight; x++) {
@@ -473,7 +477,7 @@ function draw() {
 function update() {
   if (!collided) {
     spaceship.posx += 1;
-    collided = spaceship.collideactor(target);
+    collided = spaceship.colliderect(target);
     if (spaceship.right > WIDTH) {
       collided = true;
     }

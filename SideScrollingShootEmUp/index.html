@@ -765,6 +765,148 @@ pgzrun.go()
 
 <script>
 /*
+ * A white-on-black bit array Mask for an image.
+ *
+ * The transparent parts of an image are 0 and the visible parts are 1.
+ */
+class Mask {
+  constructor(width, height) {
+    if (typeof width !== 'number') {
+      throw new TypeError('width must be a positive number.');
+    }
+    if (typeof height !== 'number') {
+      throw new TypeError('height must be a positive number.');
+    }
+    if (width <= 0) {
+      throw new RangeError('width must be a positive number.');
+    }
+    if (height <= 0) {
+      throw new RangeError('height must be a positive number.');
+    }
+
+    this.width = width;
+    this.height = height;
+    this.data = new Array(this.width * this.height).fill(0);
+  }
+
+  /*
+   * Return the number index for (x, y).
+   */
+  _coordinatesToIndex(x, y) {
+    return x + (y * this.width);
+  }
+
+  /*
+   * Return the bit at (x, y).
+   */
+  get(x, y) {
+    if (x < 0) {
+      return 0;
+    }
+    if (y < 0) {
+      return 0;
+    }
+    if (x >= this.width) {
+      return 0;
+    }
+    if (y >= this.height) {
+      return 0;
+    }
+    return this.data[this._coordinatesToIndex(x, y)];
+  }
+
+  /*
+   * Set the bit at (x, y) to value.
+   */
+  set(x, y, value) {
+    if (x < 0) {
+      return;
+    }
+    if (y < 0) {
+      return;
+    }
+    if (x >= this.width) {
+      return;
+    }
+    if (y >= this.height) {
+      return;
+    }
+    if (value === 0) {
+      this.data[this._coordinatesToIndex(x, y)] = 0;
+    }
+    else if (value === 1) {
+      this.data[this._coordinatesToIndex(x, y)] = 1;
+    }
+  }
+
+  /*
+   * Return true if the image has no transparent part.
+   */
+  isSolid() {
+    return this.data.every(b => (b === 1));
+  }
+}
+
+class MaskedActor extends Actor {
+  /*
+   * Map the string name of the image to its Mask object.
+   */
+  static MASK_MAP = new Map();
+
+  collidepoint(pos) {
+    if (super.collidepoint(pos)) {
+      // If pos is within bounds, then check if it is at a visible pixel
+      let mask = MaskedActor.MASK_MAP.get(this.name);
+      if (mask instanceof Mask) {
+        return (mask.get(Math.floor(pos[0] - this.x), Math.floor(pos[1] - this.y)) === 1);
+      }
+      return true;
+    }
+    return false;
+  }
+
+  colliderect(actor) {
+    if (super.colliderect(actor)) {
+      // If actor overlaps, then do more detailed collision detection
+      let overlapLeft = Math.floor(Math.max(this.x, actor.x)),
+          overlapTop = Math.floor(Math.max(this.y, actor.y)),
+          overlapRight = Math.floor(Math.min(this.right, actor.right)),
+          overlapBottom = Math.floor(Math.min(this.bottom, actor.bottom)),
+          thisMask = MaskedActor.MASK_MAP.get(this.name),
+          otherMask;
+      if (!(thisMask instanceof Mask)) {
+        // If there is no mask for this instance, then return the result of colliderect()
+        return true;
+      }
+
+      if (actor instanceof MaskedActor) {
+        otherMask = MaskedActor.MASK_MAP.get(actor.name);
+      }
+
+      for (let x = overlapLeft; x < overlapRight; x++) {
+        for (let y = overlapTop; y < overlapBottom; y++) {
+          if (thisMask.get(Math.floor(x - this.x), Math.floor(y - this.y)) === 1) {
+          // If the current pixel is visible for this instance
+            if (otherMask instanceof Mask) {
+              // If there is a mask for actor, then check if the current pixel is visible for actor
+              if (otherMask.get(Math.floor(x - actor.x), Math.floor(y - actor.y)) === 1) {
+                return true;
+              }
+            }
+            else {
+              // There is no mask for actor so assume all of actor is visible
+              // Then we have a collision
+              return true;
+            }
+          }
+        }
+      }
+    }
+    return false;
+  }
+}
+
+/*
  * Return a random integer N such that min <= N < max.
  */
 function getRandomInteger(min, max) {
@@ -803,7 +945,7 @@ class Foreground {
     }
     if (this.mapElement < LEVEL_DATA['foreground'].length) {
       while (LEVEL_DATA['foreground'][this.mapElement][1] < (globalTime + 800 + FOREGROUND_BIGGEST_OBJECT_HALF_X_SIZE)) {
-        let actor = new Actor(LEVEL_DATA['foreground'][this.mapElement][0]);
+        let actor = new MaskedActor(LEVEL_DATA['foreground'][this.mapElement][0]);
         actor.pos = [LEVEL_DATA['foreground'][this.mapElement][1] - globalTime, LEVEL_DATA['foreground'][this.mapElement][2]];
         this.elements.push(actor);
         this.mapElement += 1;
@@ -945,7 +1087,7 @@ class Enemy {
   constructor(index, startY) {
     this.index = index;
     this.startY = startY;
-    this.actor = new Actor(index);
+    this.actor = new MaskedActor(index);
     this.actor.pos = [800 + 200, startY];
     this.actorWhite = new Actor(index + "_white");
     this.actorWhite.pos = [800 + 200, startY];
@@ -1034,7 +1176,7 @@ class EnemyList {
 
 class SpaceShip {
   constructor() {
-    this.actor = new Actor('spaceship');
+    this.actor = new MaskedActor('spaceship');
     this.actor.pos = [100, 300];
     this.numberOfLasers = 1;
     this.vulnerable = true;
@@ -1251,41 +1393,28 @@ function collisionBulletsForeground(bullets, foreground, explosions) {
 function collisionLaserForeground(lasers, foreground, explosions) {
   for (let j = (lasers.allLasers.length - 1); j > -1; j--) {
     for (let actor of foreground.elements) {
-      let hit = false;
-      for (let i = -26; i <= 26; i++) {
-        if (actor.collidepoint([lasers.allLasers[j].posx + i, lasers.allLasers[j].posy])) {
-          explosions.append(0, lasers.allLasers[j].posx + 26, lasers.allLasers[j].posy);
-          lasers.allLasers.splice(j, 1);
-          hit = true;
-          break;
-        }
-      }
-      if (hit) {
+      let laserRect = new Rect(lasers.allLasers[j].posx - 26, lasers.allLasers[j].posy, 52, 1);
+      if (actor.colliderect(laserRect)) {
+        explosions.append(0, lasers.allLasers[j].posx + 26, lasers.allLasers[j].posy);
+        lasers.allLasers.splice(j, 1);
         break;
       }
     }
   }
 }
 
-
 function collisionLaserEnemies(lasers, enemyList, explosions, powerups) {
   for (let j = (lasers.allLasers.length - 1); j > -1; j--) {
     let index = 0;
     for (let element of enemyList.listEnemies) {
-      let hit = false;
-      for (let i = -26; i <= 26; i++) {
-        if (element.actor.collidepoint([lasers.allLasers[j].posx + i, lasers.allLasers[j].posy])) {
-          explosions.append(0, lasers.allLasers[j].posx + 26, lasers.allLasers[j].posy);
-          enemyList.laserHit(index, powerups, explosions);
-          lasers.allLasers.splice(j, 1);
-          hit = true;
-          break;
-        }
-      }
-      index++;
-      if (hit) {
+      let laserRect = new Rect(lasers.allLasers[j].posx - 26, lasers.allLasers[j].posy, 52, 1);
+      if (element.actor.colliderect(laserRect)) {
+        explosions.append(0, lasers.allLasers[j].posx + 26, lasers.allLasers[j].posy);
+        enemyList.laserHit(index, powerups, explosions);
+        lasers.allLasers.splice(j, 1);
         break;
       }
+      index++;
     }
   }
 }
@@ -1293,7 +1422,7 @@ function collisionLaserEnemies(lasers, enemyList, explosions, powerups) {
 function collisionShipForeground(spaceShip, foreground, explosions, showScore) {
   let index = -1;
   for (let i = (foreground.elements.length - 1); i > -1; i--) {
-    if (foreground.elements[i].collidepoint(spaceShip.actor.pos)) {
+    if (spaceShip.actor.colliderect(foreground.elements[i])) {
       index = i;
       break;
     }
@@ -1306,7 +1435,7 @@ function collisionShipForeground(spaceShip, foreground, explosions, showScore) {
 function collisionShipEnemies(spaceShip, enemyList, explosions, showScore, powerups) {
   let index = -1;
   for (let i = (enemyList.listEnemies.length - 1); i > -1; i--) {
-    if (enemyList.listEnemies[i].actor.collidepoint(spaceShip.actor.pos)) {
+    if (spaceShip.actor.colliderect(enemyList.listEnemies[i].actor)) {
       index = i;
       break;
     }
@@ -1361,6 +1490,39 @@ function loadLevel() {
     }
     else {
       ENEMY_DATA[name].bullets = NoBullets;
+    }
+  }
+
+  let nameSet = new Set(['spaceship']),
+      width, height, mask, surface, color;
+
+  // Add the names of foreground actually used in the level
+  for (let [name, x, y] of LEVEL_DATA['foreground']) {
+    nameSet.add(name);
+  }
+  // Add the names of enemies actually used in the level
+  for (let [name, y, x] of LEVEL_DATA['start']) {
+    nameSet.add(name);
+  }
+
+  for (let name of nameSet) {
+    width = images[name].width;
+    height = images[name].height;
+    mask = new Mask(width, height);
+    screen.clear('transparent');
+    screen.blit(name, [0, 0]);
+    surface = screen.getSurface(width, height);
+    for (let x = 0; x < width; x++) {
+      for (let y = 0; y < height; y++) {
+        color = surface.getAt(x, y);
+        if (color[3] !== 0) {
+          mask.set(x, y, 1);
+        }
+      }
+    }
+    if (!mask.isSolid()) {
+      // Only use the mask if there is a transparent part in the image
+      MaskedActor.MASK_MAP.set(name, mask);
     }
   }
 }
@@ -1471,8 +1633,10 @@ function on_key_down(key) {
 
 window.addEventListener('load', (event) => {
   images.LOAD('#imageLoader img');
-  reset();
+  // Non-standard order for Surface
   screen.set_mode('#screen', '#reset', '#pause');
+  reset();
+  screen.draw.playButton();
 });
 </script>
 </body>
