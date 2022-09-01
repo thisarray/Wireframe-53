@@ -41,11 +41,11 @@ The game screen appears here if your browser supports the Canvas API.
 
 <h2>Attribution</h2>
 
-<p><a href="https://wireframe.raspberrypi.org/issues/53">Source Code: code your own pinball video game, pages 64-65, by Mark Vanstone</a>.</p>
+<p><a href="https://wireframe.raspberrypi.com/issues/53">Source Code: code your own pinball video game, pages 64-65, by Mark Vanstone</a>.</p>
 
 <p>Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported</a>.</p>
 
-<p><a href="https://www.raspberrypi.org/blog/code-your-own-pinball-game-wireframe-53/">Blog post of Source Code</a>.</p>
+<p><a href="https://www.raspberrypi.com/news/code-your-own-pinball-game-wireframe-53/">Blog post of Source Code</a>.</p>
 
 <h2>Original Python code</h2>
 
@@ -289,11 +289,7 @@ function limit(n, minn, maxn) {
 }
 
 window.addEventListener('load', (event) => {
-  images.LOAD('#imageLoader img');
-  // Non-standard order for Surface
-  screen.set_mode('#screen', '#reset', '#pause');
-  reset();
-  screen.draw.playButton();
+  screen.init();
 });
 </script>
 </body>

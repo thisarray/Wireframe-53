@@ -206,7 +206,7 @@ The game screen appears here if your browser supports the Canvas API.
 
 <h2>Attribution</h2>
 
-<p><a href="https://wireframe.raspberrypi.org/issues/53">Create your own side-scrolling shoot-'em-up, pages 58-63, by Jordi Sontanja</a>.</p>
+<p><a href="https://wireframe.raspberrypi.com/issues/53">Create your own side-scrolling shoot-'em-up, pages 58-63, by Jordi Sontanja</a>.</p>
 
 <p>Licensed under <a href="https://creativecommons.org/licenses/by-nc-sa/3.0/legalcode">Creative Commons Attribution-NonCommercial-ShareAlike 3.0 Unported</a>.</p>
 
@@ -1632,11 +1632,7 @@ function on_key_down(key) {
 }
 
 window.addEventListener('load', (event) => {
-  images.LOAD('#imageLoader img');
-  // Non-standard order for Surface
-  screen.set_mode('#screen', '#reset', '#pause');
-  reset();
-  screen.draw.playButton();
+  screen.init();
 });
 </script>
 </body>
